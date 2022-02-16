@@ -1,0 +1,18 @@
+These are my dotfiles, meant to be used for nixOS.
+
+The great benefit of NixOS, is that I can define my whole computer in one textfile and get all those features once invoked. No more writing 50 commands to restore my system or transfer it to a new computer. Everything about computer is clear.
+
+My configuration.nix supports the following:
+
+- Wayland / Sway
+- Pipewire
+- Firefox nightly
+- Emacs built from latest git commit
+
+To build (please be extremly careful!):
+
+#+begin_src sh
+# where this is located
+cd ~/projects/nixos-dotfiles
+sudo nixos-rebuild switch -I nixos-config=./configuration.nix
+#+end_src
