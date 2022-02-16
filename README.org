@@ -1,6 +1,6 @@
 These are my dotfiles, meant to be used for nixOS.
 
-The great benefit of NixOS, is that I can define my whole computer in one textfile and get all those features once invoked. No more writing 50 commands to restore my system or transfer it to a new computer. Everything about computer is clear.
+The great benefit of NixOS, is that I can define my whole computer in one textfile and get all those features once invoked. No more writing 50 commands to restore my system or transfer it to a new computer. Everything about my computer is clear.
 
 My configuration.nix supports the following:
 

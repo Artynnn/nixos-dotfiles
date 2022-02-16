@@ -3,7 +3,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   programs.steam.enable = true;
-   imports =
+  imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
@@ -37,93 +37,92 @@
     (import ./firefox-overlay.nix) # might change this to be a relative path
     (import (builtins.fetchTarball {
       url = https://github.com/nix-community/emacs-overlay/archive/master.tar.gz;
-    }))
+    }))];
 
-  # sound
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
+    # sound
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
 
-  fonts.fonts = with pkgs; [
-     fira-code
-     fira-code-symbols
-     ibm-plex
-     jetbrains-mono
-     julia-mono
-     roboto-mono
-     source-serif
-  ];
-
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true; # so that gtk works properly
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      wl-clipboard
-      mako # notification daemon
-      wofi
+    fonts.fonts = with pkgs; [
+      fira-code
+      fira-code-symbols
+      ibm-plex
+      jetbrains-mono
+      julia-mono
+      roboto-mono
+      source-serif
     ];
-  };
 
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+    programs.sway = {
+      enable = true;
+      wrapperFeatures.gtk = true; # so that gtk works properly
+      extraPackages = with pkgs; [
+        swaylock
+        swayidle
+        wl-clipboard
+        mako # notification daemon
+        wofi
+      ];
+    };
 
-  services.xserver.desktopManager.plasma5.enable = true;
+    # Configure keymap in X11
+    services.xserver.layout = "us";
+    services.xserver.xkbOptions = "eurosign:e";
 
-   users.users.jane = {
-     isNormalUser = true;
-     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-   };
+    services.xserver.desktopManager.plasma5.enable = true;
 
-  environment.systemPackages = with pkgs; [
-     wget
-     latest.firefox-nightly-bin
-     emacsGit
-     git
-     aspell
-     aspellDicts.en
-     keepassxc
-     vlc
-     sqlite
-     pandoc
-     ffmpeg
-     pamixer
-     gcc
-     p7zip
-     ripgrep
-     hugo
-     sassc
-     nodePackages.vercel
-     ninja
-     gh
-     chromium
-     python38Full
-     wineWowPackages.staging
-  ];
+    users.users.jane = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  # I use X11 only for networked connections
-  services.openssh.forwardX11 = true;
+    environment.systemPackages = with pkgs; [
+      wget
+      latest.firefox-nightly-bin
+      emacsGit
+      git
+      aspell
+      aspellDicts.en
+      keepassxc
+      vlc
+      sqlite
+      pandoc
+      ffmpeg
+      pamixer
+      gcc
+      p7zip
+      ripgrep
+      hugo
+      sassc
+      nodePackages.vercel
+      ninja
+      gh
+      chromium
+      python38Full
+      wineWowPackages.staging
+    ];
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+    # Enable the OpenSSH daemon.
+    services.openssh.enable = true;
+    # I use X11 only for networked connections
+    services.openssh.forwardX11 = true;
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
+    # Open ports in the firewall.
+    # networking.firewall.allowedTCPPorts = [ ... ];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    networking.firewall.enable = false;
+
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = "21.11"; # Did you read the comment?
 }
-
